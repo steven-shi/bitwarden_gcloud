@@ -101,44 +101,44 @@ services:
     - TZ
 
 
-  ddns:
-    # This provides a ddclient dynamic dns updating cron which is as simple as running it
-    # and editing the ddns/config/ddclient.conf file
-    # https://github.com/linuxserver/docker-ddclient
-    image: linuxserver/ddclient
-    restart: always
-    container_name: ddns
-    <<: *default-logging
-    depends_on:
-    - bitwarden
-    volumes:
-    - ${PWD}/ddns:/config
-    environment:
-    - PUID
-    - PGID
-    - TZ
+  # ddns:
+  #   # This provides a ddclient dynamic dns updating cron which is as simple as running it
+  #   # and editing the ddns/config/ddclient.conf file
+  #   # https://github.com/linuxserver/docker-ddclient
+  #   image: linuxserver/ddclient
+  #   restart: always
+  #   container_name: ddns
+  #   <<: *default-logging
+  #   depends_on:
+  #   - bitwarden
+  #   volumes:
+  #   - ${PWD}/ddns:/config
+  #   environment:
+  #   - PUID
+  #   - PGID
+  #   - TZ
 
 
   # Uncomment if you want fail2ban to send e-mails,
   # and adjust the depends_on directive in the fail2ban service,
   # see https://github.com/crazy-max/docker-fail2ban/pull/169/files
-  # msmtpd:
-  #   image: crazymax/msmtpd:latest
-  #   restart: always
-  #   container_name: fail2ban_msmtpd
-  #   <<: *default-logging
-  #   ports:
-  #   - "127.0.0.1:2500:2500"
-  #   environment:
-  #   - TZ
-  #   - SMTP_HOST
-  #   - SMTP_PORT
-  #   - SMTP_AUTH=on
-  #   - SMTP_USER=${SMTP_USERNAME}
-  #   - SMTP_PASSWORD
-  #   - SMTP_FROM
-  #   - SMTP_TLS
-  #   - SMTP_STARTTLS
+  msmtpd:
+    image: crazymax/msmtpd:latest
+    restart: always
+    container_name: fail2ban_msmtpd
+    <<: *default-logging
+    ports:
+    - "127.0.0.1:2500:2500"
+    environment:
+    - TZ
+    - SMTP_HOST
+    - SMTP_PORT
+    - SMTP_AUTH=on
+    - SMTP_USER=${SMTP_USERNAME}
+    - SMTP_PASSWORD
+    - SMTP_FROM
+    - SMTP_TLS
+    - SMTP_STARTTLS
 
 
   fail2ban:
