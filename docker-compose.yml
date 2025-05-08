@@ -101,22 +101,22 @@ services:
     - TZ
 
 
-  # ddns:
-  #   # This provides a ddclient dynamic dns updating cron which is as simple as running it
-  #   # and editing the ddns/config/ddclient.conf file
-  #   # https://github.com/linuxserver/docker-ddclient
-  #   image: linuxserver/ddclient
-  #   restart: always
-  #   container_name: ddns
-  #   <<: *default-logging
-  #   depends_on:
-  #   - bitwarden
-  #   volumes:
-  #   - ${PWD}/ddns:/config
-  #   environment:
-  #   - PUID
-  #   - PGID
-  #   - TZ
+  ddns:
+    # This provides a ddclient dynamic dns updating cron which is as simple as running it
+    # and editing the ddns/config/ddclient.conf file
+    # https://github.com/linuxserver/docker-ddclient
+    image: linuxserver/ddclient
+    restart: always
+    container_name: ddns
+    <<: *default-logging
+    depends_on:
+    - bitwarden
+    volumes:
+    - ${PWD}/ddns:/config
+    environment:
+    - PUID
+    - PGID
+    - TZ
 
 
   # Uncomment if you want fail2ban to send e-mails,
